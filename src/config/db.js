@@ -1,16 +1,17 @@
 // Importing module
 const mysql = require('mysql');
+require('dotenv').config();
 
 // Creating connection
 var db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'todolist',
+    host: process.env.DB_HOST,
+    user: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DBNAME,
 });
 
 db.connect(function (err) {
-    if (err) return res.status(400);
+    if (err) console.log(err);
     console.log('Connected!!!');
 });
 
