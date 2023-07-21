@@ -11,6 +11,8 @@ class HomeControllers {
 
         db.query(query, function (err, result) {
             if (err) return res.status(400);
+            res.status(200).json({ data: result });
+
         });
     }
 
@@ -38,7 +40,7 @@ class HomeControllers {
     add(req, res, next) {
         var data = req.body;
         console.log(data);
-        var query;
+        var query, getQuery;
 
         // Creating Query
         query =
@@ -52,12 +54,23 @@ class HomeControllers {
             data.piority +
             "')";
 
+
+        // Creating Query
+        getQuery =
+        "SELECT id, name, description, DATE_FORMAT(date,'" +
+        '%Y-%m-%d' +
+        "') as date , piority FROM todolist";
+        
         //response
         db.query(query, function (err, result) {
             if (err) return res.status(400);
-            console.log(result);
+        });
+
+        db.query(getQuery, function (err, result) {
+            if (err) return res.status(400);
             res.status(200).json({ data: result });
         });
+
     }
 
     //[PUT] /update
