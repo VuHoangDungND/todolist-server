@@ -6,12 +6,11 @@ class HomeControllers {
         // Creating Query
         let query =
             "SELECT id, name, description, DATE_FORMAT(date,'" +
-            '%Y-%m-%e' +
+            '%Y-%m-%d' +
             "') as date , piority FROM todolist";
 
         db.query(query, function (err, result) {
             if (err) return res.status(400);
-            res.status(200).json({ data: result });
         });
     }
 
@@ -23,7 +22,7 @@ class HomeControllers {
         // Creating Query
         query =
             "SELECT id, name, description,  DATE_FORMAT(date,'" +
-            '%Y-%m-%e' +
+            '%Y-%m-%d' +
             "') as date, piority FROM todolist WHERE name REGEXP '" +
             q +
             "'";
@@ -38,6 +37,7 @@ class HomeControllers {
     //[POST] /add
     add(req, res, next) {
         var data = req.body;
+        console.log(data);
         var query;
 
         // Creating Query
@@ -55,6 +55,8 @@ class HomeControllers {
         //response
         db.query(query, function (err, result) {
             if (err) return res.status(400);
+            console.log(result);
+            res.status(200).json({ data: result });
         });
     }
 
