@@ -5,13 +5,12 @@ class HomeControllers {
     show(req, res, next) {
         // Creating Query
         let query =
-            "SELECT id, name, description, tick, DATE_FORMAT(date,'" +
+            "SELECT id, name, description, DATE_FORMAT(date,'" +
             '%Y-%m-%e' +
             "') as date , piority FROM todolist";
 
         db.query(query, function (err, result) {
             if (err) return res.status(400);
-            console.log(result);
             res.status(200).json({ data: result });
         });
     }
@@ -23,7 +22,7 @@ class HomeControllers {
 
         // Creating Query
         query =
-            "SELECT id, name, description, tick,  DATE_FORMAT(date,'" +
+            "SELECT id, name, description,  DATE_FORMAT(date,'" +
             '%Y-%m-%e' +
             "') as date, piority FROM todolist WHERE name REGEXP '" +
             q +
@@ -43,12 +42,10 @@ class HomeControllers {
 
         // Creating Query
         query =
-            "INSERT INTO `todolist` ( `name`, `description`, `tick`, `date`, `piority`) VALUES ( '" +
+            "INSERT INTO `todolist` ( `name`, `description`, `date`, `piority`) VALUES ( '" +
             data.name +
             "' ,'" +
             data.description +
-            "' ,'" +
-            data.tick +
             "' ,'" +
             data.date +
             "' ,'" +
@@ -64,7 +61,6 @@ class HomeControllers {
     //[PUT] /update
     update(req, res, next) {
         var data = req.body;
-        data = { ...data, tick: data.tick === true ? '1' : '0' };
         var query;
 
         // Creating Query
@@ -73,8 +69,6 @@ class HomeControllers {
             data.name +
             "', description = '" +
             data.description +
-            "', tick = '" +
-            data.tick +
             "', date = '" +
             data.date +
             "', piority = '" +
